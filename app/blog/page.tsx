@@ -55,8 +55,13 @@ import { useState, useMemo } from "react"
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
+
+
+
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
+
+  
 
   // sort posts by newest first
   const posts = useMemo(() => {
@@ -71,6 +76,7 @@ export default function BlogPage() {
     return ["all", ...cats]
   }, [posts])
 
+  
   // filter posts based on category
   const filteredPosts =
     selectedCategory === "all"

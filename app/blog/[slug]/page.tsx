@@ -1,56 +1,3 @@
-// import posts from "@/data/posts.json"
-// import Link from "next/link"
-// import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
-// import { Button } from "@/components/ui/button"
-
-// interface Props {
-//   params: Promise<{ slug: string }>
-// }
-
-// export default async function BlogPostPage({ params }: Props) {
-//   const { slug } = await params
-//   const post = posts.find((p) => p.slug === slug)
-
-//   if (!post) {
-//     return (
-//       <div className="min-h-screen flex flex-col items-center justify-center bg-background text-center text-foreground px-4">
-//         <h1 className="text-4xl font-bold mb-4 text-destructive">❌ Article non trouvé</h1>
-//         <p className="text-muted-foreground mb-6">
-//           Le contenu demandé n’existe pas ou a été supprimé.
-//         </p>
-//         <Button asChild variant="secondary">
-//           <Link href="/blog">← Retour au blog</Link>
-//         </Button>
-//       </div>
-//     )
-//   }
-
-//   return (
-//     <main className="min-h-screen bg-transparent text-foreground px-4 py-10 flex justify-center">
-//       <Card className="w-full max-w-3xl border-border bg-card shadow-xl">
-//         <CardHeader>
-//           <Button asChild variant="ghost" className="text-sm mb-2 w-fit px-0 hover:text-primary">
-//             <Link href="/blog">← Retour au blog</Link>
-//           </Button>
-
-//           <CardTitle className="text-3xl font-bold">{post.title}</CardTitle>
-//           <CardDescription>
-//             🗓️{" "}
-//             {new Date(post.date).toLocaleDateString("fr-FR", {
-//               year: "numeric",
-//               month: "long",
-//               day: "numeric",
-//             })}
-//           </CardDescription>
-//         </CardHeader>
-
-//         <CardContent className="prose prose-invert dark:prose-invert max-w-none leading-relaxed">
-//           <div dangerouslySetInnerHTML={{ __html: post.content }} />
-//         </CardContent>
-//       </Card>
-//     </main>
-//   )
-// }
 import posts from "@/data/posts.json"
 import Link from "next/link"
 import {
@@ -63,7 +10,11 @@ import {
 import { Button } from "@/components/ui/button"
 
 interface Props {
-  params: Promise<{ slug: string }>
+  params: { slug: string } | Promise<{ slug: string }>
+}
+
+export async function generateStaticParams() {
+  return posts.map(post => ({ slug: post.slug }))
 }
 
 export default async function BlogPostPage({ params }: Props) {
